@@ -1,0 +1,297 @@
+AVD:
+adb push KleinerWaldwegFine.gpx /sdcard/Kl.gpx
+adb push KleinerWaldwegFine.gpx /mnt/sdcard/Kl.gpx
+adb push KleinerWaldwegFine.gpx /mnt/sdcard
+
+telnet localhost 5554
+geo fix 51.66874170 7.530728030
+
+
+51.66874170|7.530728030
+
+
+Next ToDos:
+===================================================================================================================================================================================================
+- online Routing: http://maps.googleapis.com/maps/api/directions/xml?origin=51.66874170,7.530728030&mode=bicycling&destination=51.666003,&sensor=false
+
+- derzeit: überspringt man Segmente => Pech gehabt, wird nie wieder synchronisiert
+
+
+
+
+
+
+Ablauf:
+===================================================================================================================================================================================================
+1.
+    "Willkommen". Pause
+
+    "Der Startpunkt Ihrer Route liegt auf 9 Uhr von Norden aus und ist 84 Meter entfernt." - Ruhe
+
+2.
+    "Willkommen". Pause
+
+    "Der nächste Zielpunkt Ihrer Route liegt auf 9 Uhr von Norden aus und ist 52 Meter entfernt." - Ruhe
+
+    "In 20 Metern biegen Sie links auf 10 Uhr ab." - Ruhe
+
+
+
+"Von Norden aus befindet sich der Startpunkt Ihrer Route nun auf 9 Uhr
+281 Meter entfernt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Google Response to
+
+http://maps.googleapis.com/maps/api/directions/xml?origin=51.66874170,7.530728030&mode=bicycling&destination=51.666003,7.472892&sensor=false
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<DirectionsResponse>
+   <status>OK</status>
+   <route>
+      <summary>Netteberger Straße</summary>
+      <leg>
+         <step>
+            <travel_mode>BICYCLING</travel_mode>
+            <start_location>
+               <lat>51.6688262</lat>
+               <lng>7.5304812</lng>
+            </start_location>
+            <end_location>
+               <lat>51.6683324</lat>
+               <lng>7.5300194</lng>
+            </end_location>
+            <polyline>
+               <points>eqjzHox}l@VRjAfA</points>
+            </polyline>
+            <duration>
+               <value>17</value>
+               <text>1 Minute</text>
+            </duration>
+            <html_instructions>
+               Nach
+               <b>Südwesten</b>
+            </html_instructions>
+            <distance>
+               <value>63</value>
+               <text>63 m</text>
+            </distance>
+         </step>
+         <step>
+            <travel_mode>BICYCLING</travel_mode>
+            <start_location>
+               <lat>51.6683324</lat>
+               <lng>7.5300194</lng>
+            </start_location>
+            <end_location>
+               <lat>51.6725581</lat>
+               <lng>7.5257158</lng>
+            </end_location>
+            <polyline>
+               <points>anjzHsu}l@S^CBCFEDOLEBIHIJCDCDEDCFADELK^EJADCBGNCBILEHCJCHADCLAJE`@?DCTCNCLCJCJEHCDCBABCBCBCBoAr@IDEBC?A?AAEAGEGEECGCQEKEE?EAE@OBI@C?G?MAG?C?C@C?C@EBQPA@IFKDIBC?QBKBG@k@Ta@\CBKJIJILORCDOVINGNIPADGPEJCLALEPAHCDA@k@f@</points>
+            </polyline>
+            <duration>
+               <value>132</value>
+               <text>2 Minuten</text>
+            </duration>
+            <html_instructions>
+               <b>Rechts</b>
+               Richtung
+               <b>Hölterweg</b>
+               abbiegen
+            </html_instructions>
+            <distance>
+               <value>605</value>
+               <text>0,6 km</text>
+            </distance>
+            <maneuver>turn-right</maneuver>
+         </step>
+         <step>
+            <travel_mode>BICYCLING</travel_mode>
+            <start_location>
+               <lat>51.6725581</lat>
+               <lng>7.5257158</lng>
+            </start_location>
+            <end_location>
+               <lat>51.6737019</lat>
+               <lng>7.5278428</lng>
+            </end_location>
+            <polyline>
+               <points>ohkzHwz|l@CKg@qBYcAMa@{@wAIOiA{A</points>
+            </polyline>
+            <duration>
+               <value>43</value>
+               <text>1 Minute</text>
+            </duration>
+            <html_instructions>
+               <b>Rechts</b>
+               abbiegen auf
+               <b>Hölterweg</b>
+            </html_instructions>
+            <distance>
+               <value>197</value>
+               <text>0,2 km</text>
+            </distance>
+            <maneuver>turn-right</maneuver>
+         </step>
+         <step>
+            <travel_mode>BICYCLING</travel_mode>
+            <start_location>
+               <lat>51.6737019</lat>
+               <lng>7.5278428</lng>
+            </start_location>
+            <end_location>
+               <lat>51.6766491</lat>
+               <lng>7.5259011</lng>
+            </end_location>
+            <polyline>
+               <points>sokzH_h}l@_@t@GJKRi@`ACDOTS\UZQTOP[\GDCDIHEDKFKFWNMBOBI@O@Y@g@?y@@yA@Y@</points>
+            </polyline>
+            <duration>
+               <value>55</value>
+               <text>1 Minute</text>
+            </duration>
+            <html_instructions>
+               <b>Links</b>
+               abbiegen auf
+               <b>Sandweg</b>
+            </html_instructions>
+            <distance>
+               <value>374</value>
+               <text>0,4 km</text>
+            </distance>
+            <maneuver>turn-left</maneuver>
+         </step>
+         <step>
+            <travel_mode>BICYCLING</travel_mode>
+            <start_location>
+               <lat>51.6766491</lat>
+               <lng>7.5259011</lng>
+            </start_location>
+            <end_location>
+               <lat>51.6772845</lat>
+               <lng>7.5194638</lng>
+            </end_location>
+            <polyline>
+               <points>ablzH{{|l@EFCFAFAHEjCGnCE`ACbAC\IpBMfDE~AIhAUfFIvAADABADEP</points>
+            </polyline>
+            <duration>
+               <value>79</value>
+               <text>1 Minute</text>
+            </duration>
+            <html_instructions>
+               Nach
+               <b>links</b>
+               abbiegen, um auf
+               <b>Sandweg</b>
+               zu bleiben
+            </html_instructions>
+            <distance>
+               <value>453</value>
+               <text>0,5 km</text>
+            </distance>
+            <maneuver>turn-left</maneuver>
+         </step>
+         <step>
+            <travel_mode>BICYCLING</travel_mode>
+            <start_location>
+               <lat>51.6772845</lat>
+               <lng>7.5194638</lng>
+            </start_location>
+            <end_location>
+               <lat>51.6661285</lat>
+               <lng>7.4728440</lng>
+            </end_location>
+            <polyline>
+               <points>_flzHss{l@Nz@TpA@DRx@Pv@H`@Tz@\xA@FXjBDZBTBZBT@X@b@?PAF?TCTAVAHIn@M~@WnBGb@Gb@MvA?R?r@?L?X?lB?h@@zA?x@?F@TBj@@d@Bd@@V@L@JJbAF`@Jn@F\RfAPtAB\J|CNnDHlBDnAB~@FbB?F@P@d@?f@?XAvAAh@Cv@AR?R?D?B?H?f@DpAFvA@rABdA@h@BPBPF`@Np@Pr@T`ALf@ZpAJ^XnADNNd@`@tA^bANVVj@d@v@BHLRFJDHDJDNH`@d@vCP`AZjAx@`DR|@T`ALf@l@jCTv@XfAHXL\Xr@JXP`@JXl@nA^t@Xb@TTn@z@p@|@j@j@JJDDV^Vb@BBJTBHDHFRFTFTDVjA~FpAxGFX~@hEdAxELj@hAlF^bBNv@VlAb@hCJh@Hf@h@tCh@nCHf@Pl@@FR~ABXBXDr@R~BDj@BXDd@Fj@TbBLnALv@H`@DPJx@?NR~B</points>
+            </polyline>
+            <duration>
+               <value>631</value>
+               <text>11 Minuten</text>
+            </duration>
+            <html_instructions>
+               <b>Links</b>
+               abbiegen auf
+               <b>Netteberger Straße</b>
+            </html_instructions>
+            <distance>
+               <value>3575</value>
+               <text>3,6 km</text>
+            </distance>
+            <maneuver>turn-left</maneuver>
+         </step>
+         <step>
+            <travel_mode>BICYCLING</travel_mode>
+            <start_location>
+               <lat>51.6661285</lat>
+               <lng>7.4728440</lng>
+            </start_location>
+            <end_location>
+               <lat>51.6660076</lat>
+               <lng>7.4728749</lng>
+            </end_location>
+            <polyline>
+               <points>i`jzHgprl@CHABAD?DAB?J?D@B@D@@@DBB@@@@B@@?B?BA@?BADE@E@E@E@E?G?E?GAGACAECCACC?</points>
+            </polyline>
+            <duration>
+               <value>40</value>
+               <text>1 Minute</text>
+            </duration>
+            <html_instructions>In den Kreisverkehr</html_instructions>
+            <distance>
+               <value>76</value>
+               <text>76 m</text>
+            </distance>
+         </step>
+         <duration>
+            <value>997</value>
+            <text>17 Minuten</text>
+         </duration>
+         <distance>
+            <value>5343</value>
+            <text>5,3 km</text>
+         </distance>
+         <start_location>
+            <lat>51.6688262</lat>
+            <lng>7.5304812</lng>
+         </start_location>
+         <end_location>
+            <lat>51.6660076</lat>
+            <lng>7.4728749</lng>
+         </end_location>
+         <start_address>Cappenberger Damm 87, 59379 Selm, Deutschland</start_address>
+         <end_address>Ostwall, 59379 Selm, Deutschland</end_address>
+      </leg>
+      <copyrights>Kartendaten © 2014 GeoBasis-DE/BKG (©2009), Google</copyrights>
+      <overview_polyline>
+         <points>eqjzHox}l@bBzAWb@_@^[`@Q`@Wt@[j@Mh@KhAOt@OV{A~@UHWOk@SKAUDc@?S@]XULMB]Fs@V{@x@m@~@]v@Sx@Mb@k@f@CKaAuDMa@{@wAsAkB}AvC}@tAeAjA_@\c@V]F{ADsCBY@EFENGtCUrHg@bMc@hIGVd@lCp@xCr@tCZrBPbB@vAGlAw@bGUzB?fA?~DBrDJnCV~Bx@jFh@xMPzFBxBIlE?f@NdHDnBFb@VrAf@tBnAhFTt@`AxCpAdC`@t@Np@v@xE~BlJz@rDn@~B|@dCjB`EXb@TT`BxBv@v@\d@j@fA\hAjDjQ|E|Tn@zCz@vEhBvJZtATfB`@fFVvCb@rDVxAPjARnCGX?XHPHDLCFKBK@[IUEC</points>
+      </overview_polyline>
+      <warning>Beim Fahrrad-Routenplaner handelt es sich um eine Betaversion. Achtung – Auf dieser Route liegen eventuell Straßen, die nicht für Radfahrer geeignet sind.</warning>
+      <bounds>
+         <southwest>
+            <lat>51.6659338</lat>
+            <lng>7.4724630</lng>
+         </southwest>
+         <northeast>
+            <lat>51.6772845</lat>
+            <lng>7.5304812</lng>
+         </northeast>
+      </bounds>
+   </route>
+</DirectionsResponse>

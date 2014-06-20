@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <group android:id="@+id/calculateRoute">
+        <item android:id="@+id/contextExtendRoute"
+            android:title="Route erweitern"
+            android:showAsAction="ifRoom"/>
+        <item android:id="@+id/contextNewRoute"
+            android:title="Neue Route"
+            android:showAsAction="ifRoom"/>
+    </group>
+</menu>

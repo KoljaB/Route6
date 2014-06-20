@@ -1,0 +1,362 @@
+Application Crashtime: 2014-06-06 23:57:20.049
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.IndexOutOfBoundsException: Invalid index 673, size is 174
+-  Stacktrace ------------------------------------------------------------------
+java.lang.IndexOutOfBoundsException: Invalid index 673, size is 174
+	at java.util.ArrayList.throwIndexOutOfBoundsException(ArrayList.java:255)
+	at java.util.ArrayList.get(ArrayList.java:308)
+	at com.example.routemap.app.MainActivity.TryNavigate(MainActivity.java:1567)
+	at com.example.routemap.app.MainActivity.Navigate(MainActivity.java:1535)
+	at com.example.routemap.app.MainActivity.ProcessNewLocation(MainActivity.java:1496)
+	at com.example.routemap.app.MainActivity.OnLocationProvided(MainActivity.java:1419)
+	at com.example.routemap.app.LocationFeeder.FireOnLocationProvidedEvent(LocationFeeder.java:99)
+	at com.example.routemap.app.LocationFeeder$ServiceLocationListener.onLocationChanged(LocationFeeder.java:307)
+	at android.location.LocationManager$ListenerTransport._handleMessage(LocationManager.java:255)
+	at android.location.LocationManager$ListenerTransport.access$000(LocationManager.java:184)
+	at android.location.LocationManager$ListenerTransport$1.handleMessage(LocationManager.java:200)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:03.123
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:03.538
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:03.945
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:16.040
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:16.450
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:16.853
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:56.265
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:56.879
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-12 16:32:57.390
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.routemap.app/com.example.routemap.app.MainActivity}: java.lang.NullPointerException
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2295)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2349)
+	at android.app.ActivityThread.access$700(ActivityThread.java:159)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1316)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.NullPointerException
+	at com.example.routemap.app.LocationFeeder.isBetterLocation(LocationFeeder.java:231)
+	at com.example.routemap.app.LocationFeeder.Start(LocationFeeder.java:135)
+	at com.example.routemap.app.MainActivity.InitApp(MainActivity.java:575)
+	at com.example.routemap.app.MainActivity.onCreate(MainActivity.java:256)
+	at android.app.Activity.performCreate(Activity.java:5372)
+	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1104)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2257)
+	... 11 more
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-14 23:29:42.381
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.NullPointerException
+	at com.example.routemap.app.Geo.LocationToGeopoint(Geo.java:357)
+	at com.example.routemap.app.MainActivity.PositionRoute(MainActivity.java:963)
+	at com.example.routemap.app.MainActivity.onOptionsItemSelected(MainActivity.java:994)
+	at android.app.Activity.onMenuItemSelected(Activity.java:2640)
+	at com.android.internal.policy.impl.PhoneWindow.onMenuItemSelected(PhoneWindow.java:1171)
+	at com.android.internal.view.menu.MenuBuilder.dispatchMenuItemSelected(MenuBuilder.java:735)
+	at com.android.internal.view.menu.SubMenuBuilder.dispatchMenuItemSelected(SubMenuBuilder.java:81)
+	at com.android.internal.view.menu.MenuItemImpl.invoke(MenuItemImpl.java:152)
+	at com.android.internal.view.menu.MenuBuilder.performItemAction(MenuBuilder.java:874)
+	at com.android.internal.view.menu.MenuDialogHelper.onClick(MenuDialogHelper.java:201)
+	at com.android.internal.app.AlertController$AlertParams$3.onItemClick(AlertController.java:980)
+	at android.widget.AdapterView.performItemClick(AdapterView.java:301)
+	at android.widget.AbsListView.performItemClick(AbsListView.java:1510)
+	at android.widget.AbsListView$PerformClick.run(AbsListView.java:3339)
+	at android.os.Handler.handleCallback(Handler.java:730)
+	at android.os.Handler.dispatchMessage(Handler.java:92)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+
+--------------------------------------------------------------------------------
+
+Application Crashtime: 2014-06-14 23:29:54.418
+================================================================================
+-  Exception  ------------------------------------------------------------------
+java.lang.NullPointerException
+-  Stacktrace ------------------------------------------------------------------
+java.lang.NullPointerException
+	at com.example.routemap.app.Geo.LocationToGeopoint(Geo.java:357)
+	at com.example.routemap.app.MainActivity.PositionRoute(MainActivity.java:963)
+	at com.example.routemap.app.MainActivity.onOptionsItemSelected(MainActivity.java:994)
+	at android.app.Activity.onMenuItemSelected(Activity.java:2640)
+	at com.android.internal.policy.impl.PhoneWindow.onMenuItemSelected(PhoneWindow.java:1171)
+	at com.android.internal.view.menu.MenuBuilder.dispatchMenuItemSelected(MenuBuilder.java:735)
+	at com.android.internal.view.menu.SubMenuBuilder.dispatchMenuItemSelected(SubMenuBuilder.java:81)
+	at com.android.internal.view.menu.MenuItemImpl.invoke(MenuItemImpl.java:152)
+	at com.android.internal.view.menu.MenuBuilder.performItemAction(MenuBuilder.java:874)
+	at com.android.internal.view.menu.MenuDialogHelper.onClick(MenuDialogHelper.java:201)
+	at com.android.internal.app.AlertController$AlertParams$3.onItemClick(AlertController.java:980)
+	at android.widget.AdapterView.performItemClick(AdapterView.java:301)
+	at android.widget.AbsListView.performItemClick(AbsListView.java:1510)
+	at android.widget.AbsListView$PerformClick.run(AbsListView.java:3339)
+	at android.os.Handler.handleCallback(Handler.java:730)
+	at android.os.Handler.dispatchMessage(Handler.java:92)
+	at android.os.Looper.loop(Looper.java:176)
+	at android.app.ActivityThread.main(ActivityThread.java:5419)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:525)
+	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1046)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:862)
+	at dalvik.system.NativeStart.main(Native Method)
+
+--------------------------------------------------------------------------------
+

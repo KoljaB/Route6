@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GPX Tour Guide</string>
+    <string name="saveGpxTitle">Enter name</string>
+    <string name="saveGpxComment">Enter the route name</string>
+
+</resources>

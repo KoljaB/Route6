@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item android:id="@+id/menuNaviTogglePause"-->
+        <!--android:checkable="true"-->
+        <!--android:icon="@drawable/ic_pause_icon"-->
+        <!--android:title="Pause"-->
+        <!--android:showAsAction="ifRoom"/>-->
+    <item android:id="@+id/menuNavigation"
+        android:icon="@drawable/ic_navi_icon"
+        android:title="Navigation"
+        android:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/menuNaviStart"
+                android:title="Zurück zum Start"
+                android:showAsAction="ifRoom"/>
+            <item android:id="@+id/menuNaviPosition"
+                android:title="Aktuelle Position finden"
+                android:showAsAction="ifRoom"/>
+            <item android:id="@+id/menuNaviAutoRouting"
+                android:checkable="true"
+                android:title="Autorouting (beta)"
+                android:showAsAction="ifRoom"/>
+            <item android:id="@+id/menuNaviAvoidHills"
+                android:checkable="true"
+                android:title="Hügel vermeiden"
+                android:showAsAction="ifRoom"/>
+            <item android:id="@+id/menuNaviBikeroutes"
+                android:checkable="true"
+                android:title="Viele Bikerouten"
+                android:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+
+    <!--<item android:id="@+id/menuSpeak"-->
+        <!--android:icon="@drawable/ic_speak_icon"-->
+        <!--android:title="Sprachausgabe"-->
+        <!--android:showAsAction="ifRoom">-->
+        <!--<menu>-->
+            <!--<item android:id="@+id/menuSpeakAmount"-->
+                <!--android:title="Textmenge"-->
+                <!--android:showAsAction="ifRoom"/>-->
+            <!--<item android:id="@+id/menuSpeakSpeed"-->
+                <!--android:title="Sprachgeschwindigkeit"-->
+                <!--android:showAsAction="ifRoom"/>-->
+            <!--<item android:id="@+id/menuSpeakVoice"-->
+                <!--android:title="Stimme"-->
+                <!--android:showAsAction="ifRoom"/>-->
+        <!--</menu>-->
+    <!--</item>-->
+    <item android:id="@+id/menuRoute"
+        android:icon="@drawable/ic_route_icon"
+        android:title="Route"
+        android:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/menuRouteClear"
+                android:title="Neu"
+                android:showAsAction="ifRoom"/>
+            <item android:id="@+id/menuRouteLoadFile"
+                android:title="Laden"
+                android:showAsAction="ifRoom"/>
+            <item android:id="@+id/menuRouteSaveFile"
+                android:title="Speichern"
+                android:showAsAction="ifRoom"/>
+            <item android:id="@+id/menuSmooth"
+                android:icon="@drawable/ic_map_icon"
+                android:title="Glätten"
+                android:showAsAction="ifRoom">
+                <menu>
+                    <group android:id="@+id/groupSmooth" android:checkableBehavior="single">
+                        <item android:id="@+id/menuSmooth1"
+                            android:title="1 - keine Glättung" />
+                        <item android:id="@+id/menuSmooth2"
+                            android:title="2 - kaum merklich" />
+                        <item android:id="@+id/menuSmooth3"
+                            android:title="3 - sehr leicht" />
+                        <item android:id="@+id/menuSmooth4"
+                            android:title="4 - leicht" />
+                        <item android:id="@+id/menuSmooth5"
+                            android:title="5 - normal" />
+                        <item android:id="@+id/menuSmooth6"
+                            android:title="6 - überdurchschnittlich" />
+                        <item android:id="@+id/menuSmooth7"
+                            android:title="7 - stark" />
+                        <item android:id="@+id/menuSmooth8"
+                            android:title="8 - sehr stark" />
+                        <item android:id="@+id/menuSmooth9"
+                            android:title="9 - extrem stark" />
+                        <item android:id="@+id/menuSmooth10"
+                            android:title="10 - ultrastark" />
+                    </group>
+                </menu>
+            </item>
+            <item android:id="@+id/menuRouteReverse"
+                android:checkable="true"
+                android:title="Umkehren"
+                android:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+    <item android:id="@+id/menuMap"
+        android:icon="@drawable/ic_config_icon"
+        android:title="Einstellungen"
+        android:showAsAction="ifRoom">
+        <menu>
+            <!--<item android:id="@+id/menuMapCenter"-->
+            <!--android:checkable="true"-->
+            <!--android:title="Auto-Zentrieren"-->
+            <!--android:showAsAction="ifRoom"/>-->
+            <item android:id="@+id/menuMobilityType"
+                android:title="Art der Fortbewegung"
+                android:showAsAction="ifRoom">
+                <menu>
+                    <group android:id="@+id/groupMobilityType" android:checkableBehavior="single">
+                        <item android:id="@+id/menuMobilityTypeFoot"
+                            android:title="Zu Fuss" />
+                        <item android:id="@+id/menuMobilityTypeBike"
+                            android:title="Fahrrad" />
+                        <item android:id="@+id/menuMobilityTypeCar"
+                            android:title="Auto" />
+                    </group>
+                </menu>
+            </item>
+            <item android:id="@+id/menuToleranceAngle"
+                android:title="Stumm-Winkel geradeaus"
+                android:showAsAction="ifRoom">
+                <menu>
+                    <group android:id="@+id/groupToleranceAngle" android:checkableBehavior="single">
+                        <item android:id="@+id/menuToleranceAngle0"
+                            android:title="0°" />
+                        <item android:id="@+id/menuToleranceAngle5"
+                            android:title="5°" />
+                        <item android:id="@+id/menuToleranceAngle10"
+                            android:title="10°" />
+                        <item android:id="@+id/menuToleranceAngle15"
+                            android:title="15°" />
+                        <item android:id="@+id/menuToleranceAngle20"
+                            android:title="20°" />
+                        <item android:id="@+id/menuToleranceAngle25"
+                            android:title="25°" />
+                        <item android:id="@+id/menuToleranceAngle30"
+                            android:title="30°" />
+                        <item android:id="@+id/menuToleranceAngle40"
+                            android:title="40°" />
+                        <item android:id="@+id/menuToleranceAngle50"
+                            android:title="50°" />
+                        <item android:id="@+id/menuToleranceAngle60"
+                            android:title="60°" />
+                        <item android:id="@+id/menuToleranceAngle90"
+                            android:title="90°" />
+                    </group>
+                </menu>
+            </item>
+            <item android:id="@+id/menuSpeakSpeed"
+                android:icon="@drawable/ic_speak_icon"
+                android:title="Sprachgeschwindigkeit"
+                android:showAsAction="ifRoom">
+                <menu>
+                    <group android:id="@+id/groupSpeak" android:checkableBehavior="single">
+                        <item android:id="@+id/menuSpeakSpeedVerySlow"
+                            android:title="sehr langsam" />
+                        <item android:id="@+id/menuSpeakSpeedSlow"
+                            android:title="langsam" />
+                        <item android:id="@+id/menuSpeakSpeedNormal"
+                            android:title="normal" />
+                        <item android:id="@+id/menuSpeakSpeedFast"
+                            android:title="schnell" />
+                        <item android:id="@+id/menuSpeakSpeedVeryFast"
+                            android:title="sehr schnell" />
+                    </group>
+                </menu>
+            </item>
+            <item android:id="@+id/menuSpeakLoudness"
+                android:icon="@drawable/ic_speak_icon"
+                android:title="Lautstärke"
+                android:showAsAction="ifRoom">
+                <menu>
+                    <group android:id="@+id/groupSpeak" android:checkableBehavior="single">
+                        <item android:id="@+id/menuSpeakNoiseVeryQuiet"
+                            android:title="sehr leise" />
+                        <item android:id="@+id/menuSpeakNoiseQuiet"
+                            android:title="leise" />
+                        <item android:id="@+id/menuSpeakNoiseNormal"
+                            android:title="normal" />
+                        <item android:id="@+id/menuSpeakNoiseLoud"
+                            android:title="laut" />
+                        <item android:id="@+id/menuSpeakNoiseVeryLoud"
+                            android:title="sehr laut" />
+                    </group>
+                </menu>
+            </item>
+            <item android:id="@+id/menuMapLoad"
+                android:title="Kartendatei wählen"
+                android:showAsAction="ifRoom"/>
+            <!--<item android:id="@+id/menuMapThemed"-->
+                <!--android:checkable="true"-->
+                <!--android:title="Karte verwenden"-->
+                <!--android:showAsAction="ifRoom"/>-->
+        </menu>
+    </item>
+
+</menu>
