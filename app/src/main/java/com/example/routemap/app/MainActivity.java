@@ -38,6 +38,8 @@ import org.mapsforge.android.maps.overlay.Polyline;
 import org.mapsforge.core.model.GeoPoint;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -62,6 +64,9 @@ public class MainActivity extends MapActivity
     public static final int MOBILITY_TYPE_WALK = 0;
     public static final int MOBILITY_TYPE_BIKE = 1;
     public static final int MOBILITY_TYPE_CAR = 2;
+
+    public static final float LATDEF = -1.234567f;
+    public static final float LONDEF = 7.654321f;
 
     final TreeMap<Double, Long> PROXIMITY_DISTANCES_TIMEOUTS_WALK = new TreeMap<Double, Long>(){{
         put(20.0, 48 * 1000l);
@@ -106,7 +111,7 @@ public class MainActivity extends MapActivity
     public static final double MOVED_PIXEL_THRESHOLD = 70;
 
     public final static String MAIN_DIRECTORY = "/GpsTourGuide/";
-    public final static String TRACK_DIRECTORY = "/GpsTourGuide/TrackLog/";
+    public final static String TRACK_DIRECTORY = MAIN_DIRECTORY + "TrackLog/";
     public final static String THEMES_DIRECTORY = MAIN_DIRECTORY + "Themes/";
 
     final float ROUTELOG_FILTER_HIGHRES = 0.5f;
@@ -135,7 +140,11 @@ public class MainActivity extends MapActivity
     TextView txtPause = null;
     TextView txtFinished = null;
     TextView txtIgnoreDirection = null;
+    ImageButton btnPos1 = null;
+    ImageButton btnPos2 = null;
+    ImageButton btnPos3 = null;
     ImageButton btnCenter = null;
+    ImageButton btnRecord = null;
     ImageButton btnUndo = null;
     ImageButton btnRedo = null;
     ImageButton btnSetPoint = null;
@@ -160,6 +169,7 @@ public class MainActivity extends MapActivity
     int smoothingStrength = 5;
     //double sumDistance = 0;
     double distanceTrack = 0;
+    double distanceCovered = 0;
     boolean avoidHills = false;
     boolean preferBikeRoutes = false;
     boolean useAutoRouting = false;
@@ -167,6 +177,7 @@ public class MainActivity extends MapActivity
     boolean useMap = true;
     boolean isPause = false;
     boolean isAutoCenter = true;
+    boolean isRecording = false;
     boolean isFinish = false;
     boolean isPopupVisible = false;
     long lastBackRouteTime = 0;
@@ -182,6 +193,18 @@ public class MainActivity extends MapActivity
     byte zoomSize = 17;
     float strokeSize;
     float smallStrokeSize;
+    final int NO_POS = 3;
+    double[] posLat = new double[NO_POS];
+    double[] posLon = new double[NO_POS];
+    File trackFile = null;
+    FileWriter trackFileWriter;
+    List<ImageButton> posImages;
+//    double pos1Lat = 0;
+//    double pos1Lon = 0;
+//    double pos2Lat = 0;
+//    double pos2Lon = 0;
+//    double pos3Lat = 0;
+//    double pos3Lon = 0;
 
     List<GeoPoint> locations;
     Point clickPoint;
@@ -209,14 +232,18 @@ public class MainActivity extends MapActivity
     GeoPoint currentPosition = null;
     File mainFolder;
     File themesFolder;
+    File trackFolder;
     GeoPoint mainRouteOffTrackPoint;
+
     //Object navigationLockObject = new Object();
 
     final String PREF_STRING = "com.example.routemap.app.SHARED_PREFERENCES";
     final String PREFKEY_GPX = PREF_STRING + "_GPXFILE";
+    final String PREFKEY_RECORDFILE = PREF_STRING + "_RECORDFILE";
     final String PREFKEY_MAP = PREF_STRING + "_MAPFILE";
     final String PREFKEY_ISREVERSE = PREF_STRING + "_ISREVERSE";
     final String PREFKEY_ISAUTOCENTER = PREF_STRING + "_ISAUTOCENTER";
+    final String PREFKEY_ISRECORDING = PREF_STRING + "_ISRECORDING";
     final String PREFKEY_USEMAP = PREF_STRING + "_USEMAP";
     final String PREFKEY_ISPAUSE = PREF_STRING + "_ISPAUSE";
     final String PREFKEY_MOBILITYTYPE = PREF_STRING + "_MOBILITYTYPE";
@@ -231,6 +258,14 @@ public class MainActivity extends MapActivity
     final String PREFKEY_PREFERBIKEROUTES = PREF_STRING + "_PREFERBIKEROUTES";
     final String PREFKEY_AVOIDHILLS = PREF_STRING + "_AVOIDHILLS";
     final String PREFKEY_AUTOROUTE = PREF_STRING + "_AUTOROUTE";
+    final String PREFKEY_POSLATITUDE = PREF_STRING + "_LATITUDE_POS_";
+    final String PREFKEY_POSLONGITUDE = PREF_STRING + "_LONGITUDE_POS_";
+//    final String PREFKEY_POS1LATITUDE = PREF_STRING + "_POS1LATITUDE";
+//    final String PREFKEY_POS1LONGITUDE = PREF_STRING + "_POS1LONGITUDE";
+//    final String PREFKEY_POS2LATITUDE = PREF_STRING + "_POS2LATITUDE";
+//    final String PREFKEY_POS2LONGITUDE = PREF_STRING + "_POS2LONGITUDE";
+//    final String PREFKEY_POS3LATITUDE = PREF_STRING + "_POS3LATITUDE";
+//    final String PREFKEY_POS3LONGITUDE = PREF_STRING + "_POS3LONGITUDE";
 
     final String EXCEPTION_LOGFILE = MAIN_DIRECTORY + "ExceptionCrashDump.log";
 
@@ -281,7 +316,10 @@ public class MainActivity extends MapActivity
                             public void run() {
                                 DrawRoute();
                                 DrawDestinationEdge(gpsRoute, -1, false, true);
-                                DrawDestinationPoint(Geo.LocationToGeopoint(currentLocation), false, true);
+
+                                if (currentLocation != null) {
+                                    DrawDestinationPoint(Geo.LocationToGeopoint(currentLocation), false, true);
+                                }
 
                                 if (currentRouteSize <= 1) {
                                     audio.Clear();
@@ -351,7 +389,15 @@ public class MainActivity extends MapActivity
             }
 
         } else {
-            Toast.makeText(getApplicationContext(), "Wait for first gps location fix", Toast.LENGTH_SHORT).show();
+            if (gpsRoute.GetRoute().size() == 0) {
+                gpsRoute.EnsureRoute(map.getMapViewPosition().getCenter());
+                DrawFinishCircle(true);
+                map.redraw();
+            } else {
+                AddRoute(gpsRoute.GetDestination(), map.getMapViewPosition().getCenter(), avoidHills, preferBikeRoutes);
+                DrawRemainingDistance();
+//                Toast.makeText(getApplicationContext(), "Wait for first gps location fix", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -550,12 +596,13 @@ public class MainActivity extends MapActivity
             themesFolder.mkdirs();
         }
 
-        if (!EXTERNRELEASE) {
-            File trackFolder = new File(Environment.getExternalStorageDirectory() + TRACK_DIRECTORY);
-            if (!trackFolder.exists()) {
-                trackFolder.mkdirs();
-            }
+        trackFolder = new File(Environment.getExternalStorageDirectory() + TRACK_DIRECTORY);
+        if (!trackFolder.exists()) {
+            trackFolder.mkdirs();
         }
+
+        //if (!EXTERNRELEASE) {
+        //}
 
         // read persisted app state
         prefs = this.getSharedPreferences(PREF_STRING, Context.MODE_PRIVATE);
@@ -563,6 +610,7 @@ public class MainActivity extends MapActivity
         toleranceAngle = prefs.getInt(PREFKEY_TOLERANCEANGLE, 15);
         smoothingStrength = prefs.getInt(PREFKEY_SMOOTHSTRENGTH, 5);
         isAutoCenter = prefs.getBoolean(PREFKEY_ISAUTOCENTER, true);
+        isRecording = prefs.getBoolean(PREFKEY_ISRECORDING, false);
         useMap = prefs.getBoolean(PREFKEY_USEMAP, true);
         useAutoRouting = prefs.getBoolean(PREFKEY_AUTOROUTE, true);
         preferBikeRoutes = prefs.getBoolean(PREFKEY_PREFERBIKEROUTES, true);
@@ -609,10 +657,18 @@ public class MainActivity extends MapActivity
         txtOffroad = (TextView) findViewById(R.id.txtOffroad);
         txtIgnoreDirection = (TextView) findViewById(R.id.txtIgnoreDirection);
         btnCenter = (ImageButton) findViewById(R.id.btnCenter);
+        btnRecord = (ImageButton) findViewById(R.id.btnRecord);
+        btnPos1 = (ImageButton) findViewById(R.id.btnPos1);
+        btnPos2 = (ImageButton) findViewById(R.id.btnPos2);
+        btnPos3 = (ImageButton) findViewById(R.id.btnPos3);
         btnUndo = (ImageButton) findViewById(R.id.btnUndo);
         btnRedo = (ImageButton) findViewById(R.id.btnRedo);
         btnSetPoint = (ImageButton) findViewById(R.id.btnSetPoint);
         imgCrosshair = (ImageButton) findViewById(R.id.imgCrosshair);
+        posImages = new ArrayList<ImageButton>();
+        posImages.add(btnPos1);
+        posImages.add(btnPos2);
+        posImages.add(btnPos3);
 
         ((ImageButton) findViewById(R.id.btnPause)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -652,12 +708,132 @@ public class MainActivity extends MapActivity
             }
         });
 
+        btnRecord.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (!isRecording) {
+                    PromptDialog dlg = new PromptDialog(MainActivity.this, R.string.recordTrackTitle, R.string.recordTrackComment) {
+                        @Override
+                        public boolean onOkClicked(String trackName) {
+
+                            String trackFileName = trackName.replaceAll("[^a-zA-Z0-9]", "");
+
+                            if (!trackFileName.endsWith(".gpx"))
+                                trackFileName = trackFileName + ".gpx";
+
+                            prefs.edit().putString(PREFKEY_RECORDFILE, trackFileName).commit();
+
+                            File file = new File(trackFolder, trackFileName);
+                            if (file.exists()) {
+                                file.delete();
+                            }
+                            try {
+                                file.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            trackFile = new File(trackFolder, trackFileName);
+                            try {
+                                trackFileWriter = new FileWriter(trackFile, true);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            LogFile.WriteLine(trackFileWriter, "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>");
+                            LogFile.WriteLine(trackFileWriter, "<gpx xmlns=\"http://www.topografix.com/GPX/1/0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd\" creator=\"GPX Tour Guide\" version=\"1.0\">");
+                            LogFile.WriteLine(trackFileWriter, "  <author>GPS Tour Guide</author>");
+                            LogFile.WriteLine(trackFileWriter, "  <trk>");
+                            LogFile.WriteLine(trackFileWriter, "    <Name>" + trackFileName + "</Name>");
+                            LogFile.WriteLine(trackFileWriter, "    <trkseg>");
+
+                            UI_ToggleRecording();
+
+                            return true;
+                        }
+                    };
+                    dlg.show();
+                }
+                else
+                {
+                    if (trackFileWriter != null) {
+                        LogFile.WriteLine(trackFileWriter, "    </trkseg>");
+                        LogFile.WriteLine(trackFileWriter, "  </trk>");
+                        LogFile.WriteLine(trackFileWriter, "</gpx>");
+                    }
+
+                    UI_ToggleRecording();
+                }
+
+                return true;
+            }
+        });
+
+
+
+        btnPos1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                if (PositionMapButton(1, btnPos1)) {
+                    Vibrate(100);
+                }
+            }
+        });
+        btnPos1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ToggleMapPositionButton(1, btnPos1);
+                Vibrate(500);
+                return true;
+            }
+        });
+
+        btnPos2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                if (PositionMapButton(2, btnPos2)) {
+                    Vibrate(100);
+                }
+            }
+        });
+        btnPos2.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ToggleMapPositionButton(2, btnPos2);
+                Vibrate(500);
+                return true;
+            }
+        });
+
+        btnPos3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                if (PositionMapButton(3, btnPos3)) {
+                    Vibrate(100);
+                }
+            }
+        });
+        btnPos3.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ToggleMapPositionButton(3, btnPos3);
+                Vibrate(500);
+                return true;
+            }
+        });
+
         btnSetPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 TryExtendRoute();
             }
         });
+
+        if (isRecording)
+        {
+            InitRecording(false);
+        }
 
         if (RELEASE) {
             status1.setVisibility(View.GONE);
@@ -777,6 +953,13 @@ public class MainActivity extends MapActivity
         float latitude = prefs.getFloat(PREFKEY_LASTLATITUDE, latLongDefault);
         float longitude = prefs.getFloat(PREFKEY_LASTLONGITUDE, latLongDefault);
 
+        for (int i = 1; i <= NO_POS; i++) {
+            posLat[i - 1] = prefs.getFloat(PREFKEY_POSLATITUDE + i, LATDEF);
+            posLon[i - 1] = prefs.getFloat(PREFKEY_POSLONGITUDE + i, LONDEF);
+        }
+
+        UpdatePositionButtons();
+
         if (latitude != latLongDefault && longitude != latLongDefault) {
             currentPosition = new GeoPoint(latitude, longitude);
             map.getMapViewPosition().setCenter(currentPosition); // center on last known wposition
@@ -791,6 +974,73 @@ public class MainActivity extends MapActivity
             ((LinearLayout) findViewById(R.id.topRightLayout)).setVisibility(View.VISIBLE);
         }
     }
+
+    private void UI_ToggleRecording() {
+        InitRecording(true);
+        Toast.makeText(getApplicationContext(), "Recording " + (isRecording ? "ON" : "OFF"), Toast.LENGTH_SHORT).show();
+        Vibrate(200);
+    }
+
+    void UpdatePositionButtons() {
+        for (int i = 1; i <= NO_POS; i++) {
+            posImages.get(i - 1).setImageDrawable(getResources().getDrawable((posLat[i - 1] == LATDEF && posLon[i - 1] == LONDEF) ? R.drawable.ic_empty_button : R.drawable.ic_filled_button));
+        }
+    }
+
+    boolean PositionMapButton(int index, ImageButton btn) {
+        if (posLat[index - 1] != LATDEF || posLon[index - 1] != LONDEF) {
+            map.getMapViewPosition().setCenter(new GeoPoint(posLat[index - 1], posLon[index - 1]));
+            return true;
+        }
+        return false;
+    }
+
+    void ToggleMapPositionButton(int index, ImageButton btn) {
+        if (posLat[index - 1] == LATDEF && posLon[index - 1] == LONDEF) {
+            // map button unassigned ==> assign
+            posLat[index - 1] = map.getMapViewPosition().getCenter().latitude;
+            posLon[index - 1] = map.getMapViewPosition().getCenter().longitude;
+
+        } else {
+            // button assigned and current position reached
+            posLat[index - 1] = LATDEF;
+            posLon[index - 1] = LONDEF;
+        }
+
+        prefs.edit().putFloat(PREFKEY_POSLATITUDE + index, (float) posLat[index - 1]).commit();
+        prefs.edit().putFloat(PREFKEY_POSLONGITUDE + index, (float) posLon[index - 1]).commit();
+
+        UpdatePositionButtons();
+    }
+
+
+//    void PositionMapButton(int index, ImageButton btn) {
+//        if (posLat[index - 1] == LATDEF && posLon[index - 1] == LONDEF) {
+//            // map button unassigned ==> assign
+//
+//            posLat[index - 1] = map.getMapViewPosition().getCenter().latitude;
+//            posLon[index - 1] = map.getMapViewPosition().getCenter().longitude;
+//
+//            prefs.edit().putFloat(PREFKEY_POSLATITUDE + index, (float) posLat[index - 1]).commit();
+//            prefs.edit().putFloat(PREFKEY_POSLONGITUDE + index, (float) posLon[index - 1]).commit();
+//        } else {
+//            if (posLat[index - 1] == map.getMapViewPosition().getCenter().latitude
+//                && posLon[index - 1] == map.getMapViewPosition().getCenter().longitude) {
+//
+//                // button assigned and current position reached
+//                posLat[index - 1] = LATDEF;
+//                posLon[index - 1] = LONDEF;
+//
+//                prefs.edit().putFloat(PREFKEY_POSLATITUDE + index, (float) posLat[index - 1]).commit();
+//                prefs.edit().putFloat(PREFKEY_POSLONGITUDE + index, (float) posLon[index - 1]).commit();
+//            } else {
+//
+//                map.getMapViewPosition().setCenter(new GeoPoint(posLat[index - 1], posLon[index - 1]));
+//            }
+//        }
+//
+//        UpdatePositionButtons();
+//    }
 
     void ToggleUndoRedoState()
     {
@@ -840,6 +1090,9 @@ public class MainActivity extends MapActivity
 
     private void SetCenterUI() {
         ((LinearLayout) findViewById(R.id.actionBarEditing)).setVisibility(!isAutoCenter ? View.VISIBLE : View.GONE);
+        ((LinearLayout) findViewById(R.id.actionBarPositions)).setVisibility(!isAutoCenter ? View.VISIBLE : View.GONE);
+
+
         btnCenter.setVisibility(!isAutoCenter ? View.VISIBLE : View.GONE);
         imgCrosshair.setVisibility(!isAutoCenter ? View.VISIBLE : View.GONE);
 
@@ -939,8 +1192,9 @@ public class MainActivity extends MapActivity
 
         if (currentLocation != null) {
             DrawDestinationPoint(Geo.LocationToGeopoint(currentLocation), false, true);
-            DrawFinishCircle(false);
         }
+
+        DrawFinishCircle(false);
         map.redraw();
     }
 
@@ -1234,6 +1488,28 @@ public class MainActivity extends MapActivity
         SetCenterUI();
     }
 
+    void InitRecording(boolean toggle) {
+        if (toggle) {
+            isRecording = !isRecording;
+        }
+
+        if (isRecording) {
+            String trackFileName = prefs.getString(PREFKEY_RECORDFILE, "");
+            trackFile = new File(trackFolder, trackFileName);
+            try {
+                trackFileWriter = new FileWriter(trackFile, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            trackFile = null;
+            trackFileWriter = null;
+        }
+
+        prefs.edit().putBoolean(PREFKEY_ISRECORDING, isRecording).commit();
+
+        btnRecord.setImageDrawable(getResources().getDrawable(isRecording ? R.drawable.ic_recording_active : R.drawable.ic_recording_inactive));
+    }
 
     void LoadGpxFile(String file, String parentDirectory) {
         SaveState();
@@ -1428,6 +1704,20 @@ public class MainActivity extends MapActivity
                 ProcessNewLocation(location);
             }
 
+
+            // record track
+            if (isRecording) {
+                if (trackFileWriter != null) {
+                    if (routeLogFilterRaw.Feed(location)) {
+                        GpxLog.LogLocation(trackFileWriter, location);
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(), "ERROR track file writer not available", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+
             if (!EXTERNRELEASE) {
                 if (routeLogFilterHighRes.Feed(location)) {
                     routeLogHighRes.LogLocation(location);
@@ -1438,9 +1728,9 @@ public class MainActivity extends MapActivity
                 if (routeLogFilterMed.Feed(location)) {
                     routeLogMed.LogLocation(location);
                 }
-                if (routeLogFilterRaw.Feed(location)) {
-                    routeLogRaw.LogLocation(location);
-                }
+//                if (routeLogFilterRaw.Feed(location)) {
+//                    routeLogRaw.LogLocation(location);
+//                }
             }
 
             DrawHeadingVector();
@@ -1456,8 +1746,12 @@ public class MainActivity extends MapActivity
             String remainDistanceString = FormatDistance(remainDistance);
             txtCompleteDistance.setText(remainDistanceString.isEmpty() ? "" : remainDistanceString);
 
-            String distanceTrackString = FormatDistance(distanceTrack);
-            txtTrackDistance.setText(distanceTrackString.isEmpty() ? "" : distanceTrackString );
+            String distanceCoveredString = FormatDistance(distanceCovered);
+            txtTrackDistance.setText(distanceCoveredString.isEmpty() ? "" : distanceCoveredString);
+
+
+//            String distanceTrackString = FormatDistance(distanceTrack);
+//            txtTrackDistance.setText(distanceTrackString.isEmpty() ? "" : distanceTrackString );
         }
     }
 
@@ -2199,14 +2493,24 @@ public class MainActivity extends MapActivity
             final List<OverlayItem> currentPositionOverlayItems = finishOverlay.getOverlayItems();
             currentPositionOverlayItems.clear();
 
+            // draw waypoints
+            if (draw) {
+                final Drawable wayPointDrawable = getResources().getDrawable(R.drawable.ic_waypoint);
+                for (GeoPoint wayPoint : gpsRoute.GetBranches()) {
+                    final Marker wayPointMarker = new Marker(wayPoint, Marker.boundCenterBottom(wayPointDrawable));
+                    currentPositionOverlayItems.add(wayPointMarker);
+                }
+            }
+
+            // draw starting flag
             final GeoPoint startPoint = route.get(0);
             final Drawable startDrawable = getResources().getDrawable(R.drawable.ic_flag_green);
             final Marker startMarker = new Marker(startPoint, Marker.boundCenterBottom(startDrawable));
-
             if (draw) {
                 currentPositionOverlayItems.add(startMarker);
             }
 
+            // draw finish / target flag
             if (route.size() >= 2) {
 
                 final GeoPoint finishPoint = route.get(route.size() - 1);

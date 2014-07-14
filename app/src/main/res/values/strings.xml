@@ -4,5 +4,7 @@
     <string name="app_name">GPX Tour Guide</string>
     <string name="saveGpxTitle">Enter name</string>
     <string name="saveGpxComment">Enter the route name</string>
+    <string name="recordTrackTitle">Enter name</string>
+    <string name="recordTrackComment">Enter a name for the recorded gpx track</string>
 
 </resources>

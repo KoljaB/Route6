@@ -39,7 +39,7 @@ public class Audio {
     final int MIN_SILENCE_BEFORE_PREVIEW = 4000;
 
     final int MIN_SILENCE_BETWEEN_UH_OH = 3000;
-    final int MIN_SILENCE_BETWEEN_OFFTRACK = 10000;
+    final int MIN_SILENCE_BETWEEN_OFFTRACK = 20000;
 
     public String SpeakReason;
 

@@ -27,9 +27,9 @@ public class GpsRoute
 //    final static double ONROAD_THRESHOLD = 60; // metres ### TBD:FBC
 
 
-    final static double OFFROAD_THRESHOLD_WALK = 28; // metres ### TBD:FBC
-    final static double OFFROAD_THRESHOLD_BIKE = 36; // metres ### TBD:FBC
-    final static double OFFROAD_THRESHOLD_CAR = 68; // metres ### TBD:FBC
+    final static double OFFROAD_THRESHOLD_WALK = 35; // metres ### TBD:FBC
+    final static double OFFROAD_THRESHOLD_BIKE = 50; // metres ### TBD:FBC
+    final static double OFFROAD_THRESHOLD_CAR = 75; // metres ### TBD:FBC
     public static double OffroadDistance = OFFROAD_THRESHOLD_BIKE;
 
 //    final static double OFFROAD_THRESHOLD = 20; // metres ### TBD:FBC
@@ -82,6 +82,8 @@ public class GpsRoute
     List<GeoPoint> route;
     List<GeoPoint> undoRoute;
     List<GeoPoint> originalRoute;
+    List<GeoPoint> branches;
+    List<String> branchDescription;
     //List<GeoPoint> trimmedRoute;
     List<Double> trackDistances;
     ProximityDetection proximity;
@@ -93,6 +95,8 @@ public class GpsRoute
 
         this.route = new ArrayList<GeoPoint>();
         this.originalRoute = new ArrayList<GeoPoint>();
+        this.branches = new ArrayList<GeoPoint>();
+        this.branchDescription = new ArrayList<String>();
         this.undoRoute = new ArrayList<GeoPoint>();
         //this.trimmedRoute = new ArrayList<GeoPoint>();
         this.routeDistances = new ArrayList<Float>();
@@ -115,24 +119,31 @@ public class GpsRoute
     // requires distance recalculation
     private boolean AddRoute(GeoPoint source, GeoPoint destination, String mode, boolean avoidHills, boolean preferBikeroutes) throws Routing.CalculateRouteException {
 
-        List<GeoPoint> calculatedRoute = routing.CalculateRouteMapQuest(source, destination, mode, avoidHills, preferBikeroutes);
-        //List<GeoPoint> calculatedRoute = routing.CalculateRouteGoogle(source, destination, mode);
+        RoutingResult routingResult = routing.CalculateRouteMapQuest(source, destination, mode, avoidHills, preferBikeroutes);
 
-        if (calculatedRoute.size() > 1) {
+        if (routingResult.FineCourse.size() > 1) {
 
             boolean first = true;
 
             if (!isReverse) {
-                for (GeoPoint point : calculatedRoute) {
+                for (GeoPoint point : routingResult.FineCourse) {
                     if (first) {
                         first = false;
                     } else {
                         originalRoute.add(point);
                     }
                 }
+
+                for (GeoPoint point : routingResult.RawCourse) {
+                    branches.add(point);
+                }
+                for (String descript : routingResult.RawDirections) {
+                    branchDescription.add(descript);
+                }
+
             } else {
-                for (int i = calculatedRoute.size() - 2; i >= 0; i--) {
-                    originalRoute.add(0, calculatedRoute.get(i));
+                for (int i = routingResult.FineCourse.size() - 2; i >= 0; i--) {
+                    originalRoute.add(0, routingResult.FineCourse.get(i));
                 }
             }
 
@@ -257,6 +268,8 @@ public class GpsRoute
 
         navigationReady = false;
 
+        branchDescription.clear();
+        branches.clear();
         originalRoute.clear();
         route.clear();
     }
@@ -267,6 +280,7 @@ public class GpsRoute
         undoRoute = new ArrayList<GeoPoint>(originalRoute);
     }
 
+    public List<GeoPoint> GetBranches() { return branches; }
     public List<GeoPoint> GetRoute()
     {
         return route;

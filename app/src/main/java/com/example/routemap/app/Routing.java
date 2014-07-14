@@ -89,9 +89,9 @@ public class Routing {
     }
 
 
-    public List<GeoPoint> CalculateRouteMapQuest(GeoPoint source, GeoPoint destination, String mode, boolean avoidHills, boolean preferBikeroutes) throws CalculateRouteException {
+    public RoutingResult CalculateRouteMapQuest(GeoPoint source, GeoPoint destination, String mode, boolean avoidHills, boolean preferBikeroutes) throws CalculateRouteException {
 
-        List<GeoPoint> route = new ArrayList<GeoPoint>();
+        RoutingResult routingResult = new RoutingResult();
 
         String routeType = "bicycle";
         if (mode == "walk") {
@@ -143,22 +143,23 @@ public class Routing {
         int endOfPoints = retString.indexOf("]", startOfPoints + 1);
 
         if (startOfPoints == -1 || endOfPoints == -1) {
-            return route;
+            return routingResult;
         }
 
         String latLongs = retString.substring(startOfPoints, endOfPoints);
 
         try {
             int last = 0;
-            int start = latLongs.indexOf(",");
             boolean isLat = true;
             double lat = 0;
+
+            int start = latLongs.indexOf(",");
             while (start != -1) {
                 String coordStr = latLongs.substring(last, start);
                 if (isLat) {
                     lat = Double.parseDouble(coordStr);
                 } else {
-                    route.add(new GeoPoint(lat, Double.parseDouble(coordStr)));
+                    routingResult.FineCourse.add(new GeoPoint(lat, Double.parseDouble(coordStr)));
                 }
 
                 last = start + 1;
@@ -168,17 +169,61 @@ public class Routing {
 
             if (last > 0) {
                 String coordStr = latLongs.substring(last, latLongs.length());
-                route.add(new GeoPoint(lat, Double.parseDouble(coordStr)));
+                routingResult.FineCourse.add(new GeoPoint(lat, Double.parseDouble(coordStr)));
             }
+
+            /*
+            start = retString.indexOf(",\"narrative\":\"");
+            while (start != -1) {
+                routingResult.RawDirections.add(retString.substring(start + 14, retString.indexOf("\"", start + 15)));
+
+                start = retString.indexOf("\"startPoint\":{\"lng\":", start + 15);
+                int comma = retString.indexOf(",\"lat\":", start + 20);
+                String lonStr = retString.substring(start + 20, comma - 1);
+                String latStr = retString.substring(comma + 7, retString.indexOf("}", comma + 7));
+                routingResult.RawCourse.add(new GeoPoint(Double.parseDouble(latStr), Double.parseDouble(lonStr)));
+
+                last = start + 1;
+                start = retString.indexOf(",\"narrative\":\"", last);
+            }
+            */
+
+//            start = retString.indexOf("\"startPoint\":{\"lng\":");
+//            while (start != -1) {
+//                int comma = retString.indexOf(",\"lat\":", start + 20);
+//
+//                String lonStr = retString.substring(start + 20, comma - 1);
+//                String latStr = retString.substring(comma + 7, retString.indexOf("}", comma + 7));
+//
+//                routingResult.RawCourse.add(new GeoPoint(Double.parseDouble(latStr), Double.parseDouble(lonStr)));
+//
+//                int narrativeIndex = retString.indexOf(",\"narrative\":\"", comma + 7);
+//                routingResult.RawDirections.add(retString.substring(narrativeIndex + 14, retString.indexOf("\"", narrativeIndex + 15)));
+//
+//                last = start + 1;
+//                start = retString.indexOf("\"startPoint\":{\"lng\":", last);
+//            }
+
         } catch (Exception e) {
             throw new CalculateRouteException("Error parsing mapquest response");
         }
+
+
+
+
+        // to find brach off information search for
+        // "narrative":"
+
+        // to find lng and lat information search for
+        // "startPoint":{"lng":
+        // "startPoint":{"lng":7.531301,"lat":51.667724},
+        // "narrative":"Turn right onto walkway. Proceed south (See map for
 
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 
-        return route;
+        return routingResult;
     }
 
 

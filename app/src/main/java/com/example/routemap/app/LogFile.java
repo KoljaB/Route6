@@ -38,6 +38,15 @@ public class LogFile {
         }
     }
 
+    public static void WriteLine(FileWriter writer, String line) {
+        try {
+            writer.write(line + "\r\n");
+            writer.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void Log(String text) {
 
         if (MainActivity.NOWRITE_ON_SDCARD) {
@@ -47,8 +56,7 @@ public class LogFile {
         synchronized (this) {
             try {
                 FileWriter fWriter = new FileWriter(logFile, true);
-                fWriter.write(text + "\r\n");
-                fWriter.flush();
+                WriteLine(fWriter, text);
                 fWriter.close();
 
             } catch (Exception e) {
